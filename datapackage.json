@@ -1,0 +1,208 @@
+{
+  "name": "suicide",
+  "datapackage_version": "1.0-beta.18",
+  "title": "Suicide",
+  "description": "Suicide reports the number, crude rate, and age-adjusted mortality rate (AAMR) of suicide.",
+  "version": "1.0",
+  "licenses": [{
+    "url": "http://opendatacommons.org/licenses/pddl/",
+    "name": "Open Data Commons Public Domain",
+    "version": "1.0",
+    "id": "odc-pddl"
+  }],
+  "sources": [{
+    "name": "ctdph",
+    "web": ""
+  }],
+  "author":[{
+    "name": "Jenna Daly",
+    "email": "jdaly@ctdata.org",
+    "web": "http://ctdata.org"
+  }],
+  "contributor": [],
+  "resources": [{
+    "path": "data/suicide_2008-2012.csv",
+    "format": "csv",
+    "schema": {
+      "fields": [{
+          "name": "Town",
+          "type": "string",
+          "dimension": false
+        }, {
+          "name": "FIPS",
+          "type": "string",
+          "dimension": false
+        }, {
+          "name": "Year",
+          "type": "string",
+          "dimension": false
+        }, {
+          "name": "Measure Type",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+		        "enum": [
+		          "Number",
+		          "Crude Rate (per 100,000)", 
+		          "AAMR (per 100,000)"
+		        ]
+			    }
+        }, {
+          "name": "Variable",
+          "type": "string",
+          "dimension": true,
+          "constraints": {
+		        "enum": ["Deaths"]
+			    }
+        }, {
+          "name": "Value",
+          "type": "number",
+          "dimension": false
+        }]
+      }
+    }
+  ],
+  "last_modified": "08/16/2017",
+  "ckan_extras": {
+    "full_description": {
+      "ckan_name": "Full Description",
+      "value": "Suicides are deaths caused by intentional self-harm. Deaths with ICD-10 codes X60-X84 and Y87.0 as the underlying cause of death are recorded as suicides. Data are reported at the state and town level in 5-year aggregations. The historical 3-year aggregations (1999-2001 thru 2007-2009) of these data have been archived, due to CTDPH no longer providing town level data in 3-year aggregations.",
+      "type": "string"
+    },
+    "suppression": {
+      "ckan_name": "Suppression",
+      "value": "",
+      "type": "string"
+    },
+    "technical_notes": {
+      "ckan_name": "Technical Notes",
+      "value": "AAMR is a mortality rate that has been statistically modified to remove the effect on mortality rates of different age distributions in different populations. For more information, please see the Technical Notes page on the CTDPH [website](http://www.ct.gov/dph/cwp/view.asp?a=3132&q=397434).",
+      "type": "string"
+    },
+    "socrata": {
+      "ckan_name": "Socrata",
+      "value": "False",
+      "type": "string"
+    },
+    "socrata_url": {
+      "ckan_name": "Socrata Dataset URL",
+      "value": "",
+      "type": "string"
+    },
+    "domain": {
+      "ckan_name": "Domain",
+      "value": "Health",
+      "type": "string"
+    },
+    "subdomain": {
+      "ckan_name": "Subdomain",
+      "value": "Health Outcomes",
+      "type": "string"
+    },
+    "geography": {
+      "ckan_name": "Geography",
+      "value": "Town",
+      "type": "string",
+      "constraints": {"enum": ["Town", "County", "Town/County", "District", "Other"]}
+    },
+    "frequency": {
+      "ckan_name": "Frequency",
+      "value": "Other",
+      "type": "string"
+    },
+    "years_in_catalog": {
+      "ckan_name": "Years in Catalog",
+      "value": ["2006-2010", "2007-2011", "2008-2012"],
+      "type": "array"
+    },
+    "latest_year": {
+      "ckan_name": "Latest Year Available",
+      "value": "2008-2012",
+      "type": "string"
+    },
+    "disabled_views": {
+      "ckan_name": "Disabled Views",
+      "value": [],
+      "type": "array",
+      "constraints": {"enum": ["map", "table", "bar", "line"]}
+    },
+    "units": {
+      "ckan_name": "Units",
+      "value": {
+        "Number": "",
+        "Percent": "%"
+      }
+    },
+    "expected_number_of_geographies": {
+		  "ckan_name": "Expected Number of Unique Geographies",
+		  "value": 170,
+		  "type": "string"
+		},     
+    "default": {      
+      "ckan_name": "Default",
+			"value": {
+		 		"Town": ["Connecticut", "Hartford"],
+		 		"Year": ["2008-2012"],
+		 		"Measure Type": "Number", 
+		 		"Variable": "Deaths"
+			},
+		  	"type": "object"
+    } 
+  },
+  "spot_checks": [
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Hartford",
+        "Year": "2006-2010",
+		 		"Variable": "Deaths",
+        "Measure Type": "Number"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "int",
+        "value": 44
+      } 
+    },
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "New Haven",
+        "Year": "2007-2011",
+		 		"Variable": "Deaths",
+        "Measure Type": "Crude Rate (per 100,000)"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "float",
+        "value": 7.12
+      } 
+    },
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "Bridgeport",
+        "Year": "2008-2012",
+		 		"Variable": "Deaths",
+        "Measure Type": "AAMR (per 100,000)"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "float",
+        "value": 5.32
+      } 
+    }
+  ],
+  "dimension_groups": [
+    {
+      "Measure Type": [
+        "Number",
+        "Crude Rate (per 100,000)", 
+        "AAMR (per 100,000)"
+      ],
+      "Variable": [
+        "Deaths"
+      ]
+    }
+  ]
+}
