@@ -21,7 +21,7 @@
   }],
   "contributor": [],
   "resources": [{
-    "path": "data/suicide_2008-2012.csv",
+    "path": "data/suicide_2010-2014.csv",
     "format": "csv",
     "schema": {
       "fields": [{
@@ -62,7 +62,7 @@
       }
     }
   ],
-  "last_modified": "08/16/2017",
+  "last_modified": "07/31/2018",
   "ckan_extras": {
     "full_description": {
       "ckan_name": "Full Description",
@@ -76,7 +76,7 @@
     },
     "technical_notes": {
       "ckan_name": "Technical Notes",
-      "value": "AAMR is a mortality rate that has been statistically modified to remove the effect on mortality rates of different age distributions in different populations. For more information, please see the Technical Notes page on the CTDPH [website](http://www.ct.gov/dph/cwp/view.asp?a=3132&q=397434).",
+      "value": "AAMR is a mortality rate that has been statistically modified to remove the effect on mortality rates of different age distributions in different populations. For more information, please see the Technical Notes page on the CTDPH website (https://portal.ct.gov/DPH/Health-Information-Systems--Reporting/Mortality/Mortality-Technical-Notes).",
       "type": "string"
     },
     "socrata": {
@@ -112,12 +112,12 @@
     },
     "years_in_catalog": {
       "ckan_name": "Years in Catalog",
-      "value": ["2006-2010", "2007-2011", "2008-2012"],
+      "value": ["2006-2010", "2007-2011", "2008-2012", "2010-2014"],
       "type": "array"
     },
     "latest_year": {
       "ckan_name": "Latest Year Available",
-      "value": "2008-2012",
+      "value": "2010-2014",
       "type": "string"
     },
     "disabled_views": {
@@ -142,7 +142,7 @@
       "ckan_name": "Default",
 			"value": {
 		 		"Town": ["Connecticut", "Hartford"],
-		 		"Year": ["2008-2012"],
+		 		"Year": ["2010-2014"],
 		 		"Measure Type": "Number", 
 		 		"Variable": "Deaths"
 			},
@@ -191,18 +191,26 @@
         "number type": "float",
         "value": 5.32
       } 
+    },
+    {
+      "type": "$lookup",
+      "filter": {
+        "Town": "East Hartford",
+        "Year": "2010-2014",
+		 		"Variable": "Deaths",
+        "Measure Type": "Number"
+      },
+      "expected": {
+        "type": "$match",
+        "number type": "float",
+        "value": 24
+      } 
     }
   ],
   "dimension_groups": [
     {
-      "Measure Type": [
-        "Number",
-        "Crude Rate (per 100,000)", 
-        "AAMR (per 100,000)"
-      ],
-      "Variable": [
-        "Deaths"
-      ]
+      "Measure Type": ["Number", "Crude Rate (per 100,000)", "AAMR (per 100,000)"], 
+      "Variable": ["Deaths"]
     }
   ]
 }

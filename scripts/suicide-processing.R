@@ -98,7 +98,7 @@ all_geogs_fips <- all_geogs_fips %>%
 # Write to File
 write.table(
   all_geogs_fips,
-  file.path(getwd(), "data", "suicide_2008-2012.csv"),
+  file.path(getwd(), "data", "suicide_2010-2014.csv"),
   sep = ",",
   na = "-6666",
   row.names = F
