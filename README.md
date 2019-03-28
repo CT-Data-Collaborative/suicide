@@ -4,6 +4,8 @@ Suicide reports the number, crude rate, and age-adjusted mortality rate (AAMR) o
 
 Data Source: <https://portal.ct.gov/DPH/Health-Information-Systems--Reporting/Mortality/Mortality-Tables--2000-to-2014-with-74-Cause-of-Death-Codes>
 
+Data Source Working Link: https://portal.ct.gov/DPH/Health-Information-Systems--Reporting/Mortality/Mortality-Tables
+
 ## License MIT
 
 ## Getting Setup
